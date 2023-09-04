@@ -1,22 +1,25 @@
 import create from "zustand";
 import { combine } from "zustand/middleware";
+import { TicketsDTO } from "./models/Ticket";
 
-type CartProperties = {
-  counter: number;
+type TicketDataInfo = {
+  ticketInfo: TicketsDTO | {};
+  userInfo: any;
 };
 
-type CartMethods = {
-  increment: () => void;
-  decrement: () => void;
+type CheckoutTicketData = {
+  setTicketInfo: (ticketInfo: any) => void;
+  setUserInfo: (userInfo: any) => void;
 };
 
-const store = combine<CartProperties, CartMethods>(
+const store = combine<TicketDataInfo, CheckoutTicketData>(
   {
-    counter: 1,
+    ticketInfo: {},
+    userInfo: {},
   },
   (set) => ({
-    increment: () => set((state) => ({ counter: state.counter + 1 })),
-    decrement: () => set((state) => ({ counter: state.counter - 1 })),
+    setTicketInfo: (ticketInfo) => set({ ticketInfo }),
+    setUserInfo: (userInfo) => set({ userInfo }),
   })
 );
 
